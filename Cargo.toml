@@ -11,5 +11,4 @@ repository = "https://github.com/eulegang/home-dir"
 
 [dependencies]
 thiserror = "1.0"
-
-nix = "0.18"
+nix = "0.24"
