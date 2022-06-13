@@ -76,6 +76,12 @@ impl HomeDirExt for Path {
                         s if s.starts_with('~') => {
                             path.push(getent(&s[1..])?);
                         }
+                        s if s.starts_with("$HOME") || s.starts_with("${HOME}") => {
+                            let p = getenv()
+                                .ok_or(Error::MissingEntry)
+                                .or_else(|_| getent_current())?;
+                            path.push(p);
+                        }
                         s => path.push(s),
                     }
                 } else {

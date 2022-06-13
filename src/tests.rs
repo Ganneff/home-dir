@@ -2,6 +2,8 @@ use super::{getent, Error};
 use crate::HomeDirExt;
 use std::path::PathBuf;
 
+use super::*;
+
 #[test]
 fn test_root() {
     #[cfg(target_os = "macos")]
@@ -25,6 +27,13 @@ fn test_expand_root() {
         "~root/foobar".expand_home().unwrap(),
         PathBuf::from(ROOT_DIR)
     );
+    let p = getenv()
+        .ok_or(Error::MissingEntry)
+        .or_else(|_| getent_current())
+        .unwrap();
+
+    assert_eq!("${HOME}".expand_home().unwrap(), PathBuf::from(&p));
+    assert_eq!("$HOME".expand_home().unwrap(), PathBuf::from(p));
 }
 
 #[test]
