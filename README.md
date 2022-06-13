@@ -1,10 +1,16 @@
-# Example tilde notation in paths
+# Expand tilde notation and $HOME/${HOME} variables in paths
 
-This crate provides a function to expand tilde notation, for referring
-to home directories, in paths. For example
+This crate provides a function to expand both, tilde notation, for referring
+to home directories, as well as the ${HOME}/$HOME variables, in paths. For example
 
 ```
 ~/foo
+```
+
+or
+
+```
+$HOME/foo
 ```
 
 would be expanded to
